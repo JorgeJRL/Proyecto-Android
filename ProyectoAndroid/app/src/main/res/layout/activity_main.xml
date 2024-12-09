@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="116dp"
+        android:layout_height="91dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/logocra" />
+
+    <TextView
+        android:id="@+id/Login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="53dp"
+        android:layout_marginBottom="41dp"
+        android:fontFamily="@font/aclonica"
+        android:text="Login"
+        android:textColor="#3023A9"
+        android:textSize="34sp"
+        app:layout_constraintBottom_toTopOf="@+id/UsuarioT"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/UsuarioT"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="17dp"
+        android:layout_marginBottom="66dp"
+        android:text="Nombre Usuario:"
+        android:textColor="#3023A9"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/ContraseñaT"
+        app:layout_constraintEnd_toStartOf="@+id/usuario"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Login" />
+
+    <TextView
+        android:id="@+id/ContraseñaT"
+        android:layout_width="152dp"
+        android:layout_height="39dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="21dp"
+        android:layout_marginBottom="65dp"
+        android:text="Contraseña:"
+        android:textColor="#3023A9"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/modificarC"
+        app:layout_constraintEnd_toStartOf="@+id/contraseña"
+        app:layout_constraintHorizontal_bias="0.714"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/UsuarioT" />
+
+    <EditText
+        android:id="@+id/contraseña"
+        android:layout_width="181dp"
+        android:layout_height="46dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="84dp"
+        android:ems="10"
+        android:inputType="textPassword"
+        android:textColor="#3023A9"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/modificarC"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <EditText
+        android:id="@+id/usuario"
+        android:layout_width="173dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="28dp"
+        android:ems="10"
+        android:hint="Nombre Usuario"
+        android:inputType="text"
+        android:textColor="#3023A9"
+        app:layout_constraintBottom_toTopOf="@+id/contraseña"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Login"
+        app:layout_constraintVertical_bias="0.25" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="310dp"
+        android:layout_height="147dp"
+        android:layout_marginStart="56dp"
+        android:layout_marginEnd="56dp"
+        android:layout_marginBottom="95dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/modificarC">
+
+        <Button
+            android:id="@+id/loginB"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Login"
+            android:textSize="20sp" />
+
+        <Button
+            android:id="@+id/signIn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Sign In"
+            android:textSize="20sp" />
+
+        <Button
+            android:id="@+id/BorrarC"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Borrar Usuario"
+            android:textSize="20sp" />
+    </LinearLayout>
+
+    <CheckBox
+        android:id="@+id/modificarC"
+        android:layout_width="278dp"
+        android:layout_height="43dp"
+        android:layout_marginEnd="57dp"
+        android:layout_marginBottom="108dp"
+        android:text="Modificar Contraseña"
+        android:textColor="#3023A9"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ContraseñaT" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
