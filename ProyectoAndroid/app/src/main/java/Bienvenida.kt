@@ -2,8 +2,13 @@ package com.example.proyectoandroid
 
 import Servicios
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.view.GestureDetector
+import android.view.GestureDetector.SimpleOnGestureListener
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.widget.Button
 import android.widget.CheckBox
@@ -18,16 +23,20 @@ import androidx.core.view.WindowInsetsCompat
 class Bienvenida : AppCompatActivity() {
     val listaS: ArrayList<Servicios> = ArrayList()
     var usuarioActual : String = ""
+    var tabla: TableLayout? = null
+    var gestureDetector: GestureDetector? = null
+    var registro: View? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_bienvenida)
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-
+        tabla = findViewById(R.id.tabla)
 
         val boton = findViewById<Button>(R.id.pedir)
         val b = findViewById<Button>(R.id.b)
@@ -35,9 +44,10 @@ class Bienvenida : AppCompatActivity() {
         usuarioActual = bundle?.getString("usuario")!!
         val usuario = findViewById<TextView>(R.id.usuarioB)
 
-
-
-
+        gestureDetector = GestureDetector(this, GestureListener())
+        tabla?.setOnTouchListener { _, event ->
+            gestureDetector?.onTouchEvent(event) ?: false
+        }
 
 
         usuario.setText("$usuarioActual")
@@ -57,8 +67,8 @@ class Bienvenida : AppCompatActivity() {
         }
         val eliminar = findViewById<Button>(R.id.eliminar)
         eliminar.setOnClickListener() {
-            val tabla = findViewById<TableLayout>(R.id.tabla)
-            for (j in tabla.childCount - 1 downTo 0 ) {
+
+            for (j in tabla!!.childCount - 1 downTo 0 ) {
                 val registro = findViewById<TableLayout>(R.id.tabla).getChildAt(j)
                 val checkBox = registro.findViewById<CheckBox>(R.id.checkBox)
                 if (checkBox.isChecked) {
@@ -71,7 +81,7 @@ class Bienvenida : AppCompatActivity() {
                     bd.close()
                     if (borrado > 0) {
                         Toast.makeText(this, "borrada con exito", Toast.LENGTH_SHORT).show()
-                        tabla.removeViewAt(j)
+                        tabla!!.removeViewAt(j)
 
                     } else {
                         Toast.makeText(this, "ha ocurrido un error", Toast.LENGTH_SHORT).show()
@@ -84,6 +94,27 @@ class Bienvenida : AppCompatActivity() {
     }
 
 
+    private inner class GestureListener : SimpleOnGestureListener(){
+        override fun onLongPress(e: MotionEvent) {
+            super.onLongPress(e) // Asegura la ejecución del comportamiento base
+
+            for (i in 0 until tabla!!.childCount) {
+                val fila = tabla!!.getChildAt(i)
+
+                fila.setOnClickListener(){
+                    val fondo = (registro!!.background as ColorDrawable).color
+                    if(fondo==Color.WHITE) {
+                        fila.setBackgroundColor(Color.LTGRAY)
+                    }else{
+                        fila.setBackgroundColor(Color.WHITE)
+
+                    }
+                }
+            }
+        }
+    }
+
+
     override fun onResume() {
         super.onResume()
         listaS.clear()
@@ -91,6 +122,10 @@ class Bienvenida : AppCompatActivity() {
         val dato = bundle2?.getString("usuario")
         meterDatos(dato!!)
         actualizarTabla()
+        gestureDetector = GestureDetector(this, GestureListener())
+        tabla?.setOnTouchListener { _, event ->
+            gestureDetector?.onTouchEvent(event) ?: false
+        }
 
 
     }
@@ -106,14 +141,14 @@ class Bienvenida : AppCompatActivity() {
             Toast.makeText(this, "Haz tu primer pedido no dudes", Toast.LENGTH_LONG).show()
         } else {
             for (i in 0 until listaS.size) {
-                val registro =
+                 registro =
                     LayoutInflater.from(this).inflate(R.layout.registro_tabla, null, false)
-                val columnaN = registro.findViewById<View>(R.id.colNombre) as TextView
-                val columnaP = registro.findViewById<View>(R.id.colProducto) as TextView
-                val columnaPeso = registro.findViewById<View>(R.id.colPeso) as TextView
-                val columnaL = registro.findViewById<View>(R.id.colLugar) as TextView
-                val columnaF = registro.findViewById<View>(R.id.colFecha) as TextView
-                val checkBox = registro.findViewById<View>(R.id.checkBox) as CheckBox
+                val columnaN = registro!!.findViewById<View>(R.id.colNombre) as TextView
+                val columnaP = registro!!.findViewById<View>(R.id.colProducto) as TextView
+                val columnaPeso = registro!!.findViewById<View>(R.id.colPeso) as TextView
+                val columnaL = registro!!.findViewById<View>(R.id.colLugar) as TextView
+                val columnaF = registro!!.findViewById<View>(R.id.colFecha) as TextView
+                val checkBox = registro!!.findViewById<View>(R.id.checkBox) as CheckBox
 
                 columnaN.text = listaS[i].nombre
                 columnaP.text = listaS[i].producto
